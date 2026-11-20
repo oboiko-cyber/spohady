@@ -1,0 +1,113 @@
+/* Стилізація зберігає палітру й скляні панелі оригінального «Заблукання» (без Tailwind CDN). */
+:root { --bg:#07090e; --ink:#e2e8f0; --muted:#94a3b8; --sky:#bae6fd; --amber:#fde68a; --mint:#a7f3d0; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin:0; width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--ink);
+  font-family:'Inter', system-ui, sans-serif; -webkit-user-select:none; user-select:none; }
+#app { position:fixed; inset:0; }
+canvas { display:block; width:100%; height:100%; cursor:pointer; touch-action:none; }
+
+button { font:inherit; color:inherit; cursor:pointer; }
+:focus-visible { outline:3px solid var(--amber); outline-offset:2px; }
+
+.glass, .hud-panel, .pill, .panel, .encounter {
+  background:rgba(13,17,23,.72); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.1); box-shadow:0 14px 40px rgba(0,0,0,.45);
+}
+
+.hud-title { position:absolute; top:20px; left:20px; z-index:10; pointer-events:none; max-width:min(34rem, 60vw); }
+.hud-title h1 { margin:0; font:300 clamp(2rem,5vw,3.2rem)/1.1 'Cormorant Garamond', Georgia, serif; letter-spacing:.03em; }
+.hud-title .sub { margin:.25rem 0 0; font:italic 1.05rem 'Cormorant Garamond', Georgia, serif; color:rgba(186,230,253,.85); }
+.hud-title .credit { margin:.2rem 0 0; font-size:.7rem; color:var(--muted); }
+
+.hud-controls { position:absolute; top:20px; right:20px; z-index:20; display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; max-width:min(46rem, 62vw); }
+.lang { display:flex; gap:4px; }
+.pill { padding:9px 15px; min-height:40px; border-radius:999px; font-size:.78rem; color:#bae6fd; display:inline-flex; align-items:center; gap:8px; }
+.pill:hover { color:#fff; border-color:rgba(186,230,253,.45); }
+.pill[aria-pressed="true"] { background:rgba(186,230,253,.22); color:#fff; }
+.pill.accent { color:#fde68a; border-color:rgba(245,158,11,.35); }
+.dot { width:8px; height:8px; border-radius:50%; background:#fbbf24; }
+
+.whisper { position:absolute; top:9.5rem; left:20px; z-index:10; max-width:22rem; padding:12px 14px; border-radius:12px;
+  font:italic .95rem/1.35 'Cormorant Garamond', Georgia, serif; pointer-events:none; }
+.whisper p { margin:.2rem 0 0; }
+.shadow-msg { font-size:.75rem; color:#67e8f9; opacity:0; transition:opacity .5s; }
+.shadow-msg.on { opacity:1; }
+.demo-tag { font:normal .62rem 'Inter', sans-serif !important; color:var(--muted); }
+
+.instructions { position:absolute; left:20px; bottom:20px; z-index:10; padding:8px 12px; border-radius:10px; font-size:.72rem; color:rgba(148,163,184,.95); pointer-events:none; background:rgba(13,17,23,.4); }
+.instructions p { margin:.25rem 0; }
+
+.light { position:absolute; right:20px; bottom:20px; z-index:10; padding:8px 10px; border-radius:10px; display:flex; flex-direction:column; align-items:flex-end; gap:6px; pointer-events:none; }
+#lightStatusLabel { font-size:.62rem; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); }
+#lightStatusLabel.shadow { color:#38bdf8; font-weight:600; }
+#lightStatusLabel.awake { color:#6ee7b7; }
+.bar { width:130px; height:9px; border-radius:99px; background:rgba(15,23,42,.8); padding:2px; border:1px solid rgba(51,65,85,.6); }
+#lightBar { height:100%; border-radius:99px; background:linear-gradient(90deg,#f59e0b,#fde68a); width:100%; }
+
+.encounter { position:absolute; left:50%; bottom:84px; transform:translateX(-50%); z-index:15; width:min(28rem, calc(100vw - 32px));
+  padding:14px 16px; border-radius:14px; text-align:center; border-color:rgba(253,230,138,.35); }
+.encounter p { margin:0 0 10px; font:italic 1.2rem/1.35 'Cormorant Garamond', Georgia, serif; color:#fef3c7; }
+
+.panel { width:min(44rem, 100%); max-height:88vh; padding:22px 24px; border-radius:16px; display:flex; flex-direction:column; gap:8px; -webkit-user-select:text; user-select:text; }
+.panel.wide { width:min(48rem, 100%); }
+.panel h2 { margin:0; font:400 1.9rem/1.15 'Cormorant Garamond', Georgia, serif; }
+.eyebrow { margin:0; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(125,211,252,.8); }
+.author { margin:0; color:#cbd5e1; font-size:1rem; font-family:"Times New Roman", Times, serif; font-style:italic; }
+.body { line-height:1.6; font-size:.98rem; color:#cbd5e1; font-weight:300; }
+.body p { margin:0 0 .9em; }
+.scroll { overflow-y:auto; min-height:0; padding-right:6px; }
+.hint { margin:0; font-size:.74rem; color:var(--muted); }
+.placeholder { margin:18px 0; padding:26px 12px; text-align:center; border:1px dashed rgba(186,230,253,.4); border-radius:12px; font:italic 1.5rem 'Cormorant Garamond', Georgia, serif; color:#e0f2fe; }
+.demo-banner { margin:0; padding:8px 10px; border-radius:8px; background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.35); color:#fde68a; font-size:.8rem; }
+.chat-log { min-height:110px; max-height:30vh; padding:10px; border-radius:10px; background:rgba(2,6,23,.55); border:1px solid #1e293b; font-size:.9rem; }
+.chat-log div { margin:0 0 8px; padding:8px 10px; border-radius:8px; }
+.chat-log .me { background:rgba(12,74,110,.35); text-align:right; }
+.chat-log .forest { background:rgba(6,78,59,.35); font:italic 1rem 'Cormorant Garamond', Georgia, serif; }
+
+.actions { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+.actions button { min-height:44px; padding:10px 18px; border-radius:10px; background:rgba(30,41,59,.8); border:1px solid rgba(148,163,184,.35); }
+.actions button:hover, .encounter button:hover { border-color:var(--sky); }
+button.primary { background:rgba(180,83,9,.55) !important; border:1px solid rgba(253,230,138,.6) !important; color:#fff7ed; }
+.encounter button { min-height:48px; min-width:11rem; padding:12px 24px; border-radius:12px; font-size:1rem; }
+
+.modal-backdrop { position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(2,4,8,.38); }
+
+.load-error { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:30; max-width:28rem; padding:14px; background:#450a0a; border:1px solid #f87171; border-radius:10px; }
+
+@media (max-width: 720px) {
+  .hud-title { top:12px; left:12px; max-width:55vw; }
+  .hud-title .sub, .hud-title .credit { display:none; }
+  .hud-controls { top:auto; bottom:12px; right:12px; left:12px; max-width:none; justify-content:center; }
+  .pill { padding:8px 11px; font-size:.72rem; min-height:44px; }
+  .whisper { top:64px; left:12px; right:12px; max-width:none; font-size:.85rem; }
+  .instructions { display:none; }
+  .light { bottom:74px; right:12px; }
+  .encounter { bottom:128px; }
+  .encounter button { width:100%; min-height:52px; }
+  .panel { padding:16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition:none !important; animation:none !important; scroll-behavior:auto !important; }
+}
+
+.enc-title { font:400 .8rem 'Inter', sans-serif !important; letter-spacing:.08em; text-transform:uppercase; color:#bae6fd !important; margin-bottom:4px !important; }
+.enc-actions { display:flex; gap:8px; justify-content:center; }
+.encounter .dismiss { min-width:48px; padding:0; background:rgba(30,41,59,.8); border:1px solid rgba(148,163,184,.35); font-size:1.4rem; }
+.art-gallery { max-height:60vh; margin:8px 0; }
+.art-img { display:block; max-width:100%; max-height:60vh; margin:0 auto 12px; object-fit:contain; border-radius:6px; }
+.body h3 { margin:1em 0 .4em; font:400 1.2rem 'Cormorant Garamond', Georgia, serif; color:#e2e8f0; }
+
+/* Репліка зайченяти: кремова плашка з темним текстом */
+.encounter { background:#fff4d6; border-color:#e8c97a; -webkit-backdrop-filter:none; backdrop-filter:none; }
+.encounter p { color:#1f1a10; font-size:1.3rem; font-style:normal; font-weight:600; text-shadow:none; }
+.encounter .enc-title { color:#6b4a12 !important; font-size:.85rem; }
+.encounter .dismiss { color:#fff4d6; }
+
+.art-gallery:has(.art-embed) { max-height:none; overflow:hidden; }
+.art-embed { display:block; width:100%; height:62vh; border:1px solid rgba(255,255,255,.12); border-radius:8px; background:#0b0f17; }
+
+.art-video { display:block; max-width:100%; max-height:60vh; margin:0 auto; background:#000; border-radius:6px; }
+
+.panel:has(.art-embed) { width:min(72rem,100%); }
+.art-embed { height:min(72vh, 52vw); min-height:320px; }

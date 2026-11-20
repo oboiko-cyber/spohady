@@ -1,0 +1,27 @@
+{
+  "exhibitionTitle": {
+    "uk": "Спогади",
+    "en": "Memories"
+  },
+  "subtitle": {
+    "uk": "Інтерактивна віртуальна виставка",
+    "en": "An interactive virtual exhibition"
+  },
+  "academicCredit": {
+    "uk": "Студентський проєкт у межах дисципліни «Сучасні виставкові експозиційні практики» студентів і студенток четвертого курсу освітньої програми «Менеджмент соціокультурної діяльності» факультету соціології Київського національного університету імені Тараса Шевченка.",
+    "en": "A student project developed for the course “Contemporary Exhibition Practices” by fourth-year students of Social and Cultural Activities Management at the Faculty of Sociology, Taras Shevchenko National University of Kyiv."
+  },
+  "curators": {
+    "uk": "Орина Бойко, Анна Голобородько, Вероніка Кулинич, Устина Лосицька, Євгенія Мостебродська",
+    "en": "Oryna Boiko, Anna Holoborodko, Veronika Kulynych, Ustyna Losytska, Yevheniia Mostebrodska"
+  },
+  "description": {
+    "uk": "Спогад — це не лише зображення того, що було. Це голос, який неможливо відділити від конкретної людини; світло у знайомому вікні; відчуття на шкірі; час, проведений із кимось, а не просто зафіксований на екрані. «Спогади» починаються з тривоги: чи не втрачаємо ми разом із такими деталями саму можливість бути присутніми у власному житті? Чи не підмінюємо створення спогадів споживанням образів, які вже готові здаватися нашими?\n\nЗгенероване подвір’я може викликати тепло, хоча ми ніколи там не були. Голос може залишатися впізнаваним, але поступово втрачати особливий говір. Фотографія — зберігати людей і водночас приховувати їх за пошкодженою поверхнею. Власне обличчя може поступитися зручній масці, а час, який мав стати вільним, — новому завданню. У цій виставці втрата стосується не тільки минулого. Ми можемо втрачати й умови, за яких з’явилися б нові спогади: увагу, можливість зупинитися, почути себе та побути поруч з іншими.\n\nШтучний інтелект загострює питання про межу між прожитим і згенерованим, але не пояснює всієї виставки. Чужі очікування, виснаження, плин часу й страх зустрічі із собою також змінюють те, що ми пам’ятаємо та що дозволяємо собі відчувати. Питання «що справжнє?» тут не означає, що цифрове мистецтво несправжнє. Воно стосується зв’язку образу з досвідом: чи зберігає він чиюсь конкретну історію, чи лише створює переконливе відчуття знайомого?\n\nВиставка існує як ліс, створений на основі «Заблукання». Зайченя з маленьким ліхтариком зустрічає відвідувача й супроводжує його серед стежок, тіней і залишених предметів. Воно не знає всіх відповідей: вагається, лякається, впізнає і не може згадати. Картина, фотографія, будиночок, ноутбук, маска чи диктофон стають приводами зупинитися. За кожним предметом відкривається окремий твір, але ліс залишається довкола — як простір, у якому ці зустрічі відбуваються.\n\nТут немає секцій і правильного порядку огляду. Відвідувач сам прокладає шлях, повертається до знайденого й поєднує роботи через власні асоціації. Спогад виникає не як нагорода за проходження, а як слід конкретної зустрічі: що привернуло увагу, що стривожило, біля чого захотілося залишитися. «Спогади» не обіцяють повернути все втрачене. Вони пропонують помітити момент, коли ми перестаємо лише дивитися на готові образи й починаємо проживати власний досвід.",
+    "en": "A memory is more than an image of something that happened. It may be a familiar voice, light in a window, a sensation on the skin, or time spent with someone. “Memories” begins with a question: as we consume increasingly convincing ready-made images, are we losing not just particular memories but the opportunity to create new ones?\n\nAn AI-generated courtyard may feel like home even though we have never been there. A voice may persist while its distinctive dialect disappears. A photograph may preserve people but conceal their faces behind damaged surfaces. A convenient mask may replace the self; time supposedly freed by technology may become another assignment. Artificial intelligence sharpens these questions, but it is not the only force at work: expectations, exhaustion, fear, and time also shape what we remember.\n\nThe exhibition is a forest based on “Zablukannia”. A rabbit carries a small lantern and wanders among paths and found objects. There are no thematic sections or mandatory sequence. You choose where to go and what to revisit. Each encounter is an invitation to notice the difference between an image that feels familiar and an experience that was truly yours."
+  },
+  "permanenceStatement": {
+    "uk": "Виставка задумана як постійно доступна онлайн-експозиція.",
+    "en": "The exhibition is intended to remain accessible online as an ongoing digital exhibition."
+  },
+  "sourceNote": "Ukrainian texts extracted without editing from user-provided curatorial DOCX. English texts are editorial draft translations for review, not author-approved."
+}

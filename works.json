@@ -1,0 +1,259 @@
+[
+  {
+    "id": "zablukannia",
+    "isEnvironment": true,
+    "title": {
+      "uk": "Заблукання",
+      "en": "Lostness"
+    },
+    "author": {
+      "uk": "Євгенія Мостебродська",
+      "en": "Yevheniia Mostebrodska"
+    },
+    "artifact": null,
+    "rabbitPhrase": {
+      "uk": "Схоже, ця стежка мені знайома. Але куди вона веде?",
+      "en": "This path looks familiar. But where does it lead?"
+    },
+    "explication": {
+      "uk": "Маленьке зайченя стоїть серед дерев із ліхтариком, світла якого не вистачає, щоб побачити весь шлях. Знайомі стежки стають чужими, а кожен поворот обіцяє і вихід, і нове загублення. Цей ліс нагадує стан, коли спроба розібратися у власних думках породжує ще більше сумнівів.\n\nУ «Спогадах» «Заблукання» не обмежується окремим епізодом: воно стає простором усієї виставки. Зайченя супроводжує нас, але також вагається й не завжди розуміє знайдене. Його тривога відгукується в моменті, коли щось здається знайомим, проте ми не можемо пояснити, звідки це впізнавання.\n\nТемрява тут пов’язана не лише з невідомістю. Власна тінь теж може здаватися загрозою — частиною себе, від якої хочеться втекти. Авторський фінал змінює цю зустріч: зайченя приймає своє друге «я», знаходить загублене світло, і ліс оживає. Тепер ліхтарик більше не потрібний. Вихід виявляється не єдиною правильною стежкою, а іншим способом бути в тому самому просторі. Чи потрібно пам’ятати весь маршрут, щоб відчути: цей шлях був твоїм?",
+      "en": "A small rabbit stands among trees with a lantern whose light cannot reveal the entire path. Familiar trails become strange; every turn might lead to an exit or deeper into uncertainty. The forest evokes a state of mind in which attempts to understand one's thoughts create still more doubts.\n\nIn ‘Memories’, ‘Zablukannia’ is not a separate episode: it becomes the setting for the whole exhibition. The rabbit accompanies us, but it also hesitates and cannot always understand what it finds. Its anxiety echoes our own uncertainty when something looks familiar yet we cannot say why.\n\nDarkness here is not only the unknown. Our shadow may also seem threatening, like a part of ourselves we would rather avoid. In the original work, the rabbit accepts its other self, recovers its lost light, and watches the forest come alive. The lantern is no longer necessary. Perhaps finding a way out matters less than learning to inhabit the same place differently."
+    },
+    "status": "forest-source",
+    "media": null
+  },
+  {
+    "id": "meninas",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Погляд Меніни",
+      "en": "The Gaze of Las Meninas"
+    },
+    "author": {
+      "uk": "Ростислав Фанагей",
+      "en": "Rostyslav Fanahei"
+    },
+    "artifact": {
+      "uk": "картина",
+      "en": "painting"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, це картина. Чому тоді здається, що дивляться на мене?",
+      "en": "It looks like a painting. Why do I feel someone is looking at me?"
+    },
+    "explication": {
+      "uk": "Ви знаходите картину й наближаєтеся, щоб роздивитися її. Але погляди персонажів спрямовані назовні — туди, де стоїте ви. Звична позиція спостерігача стає непевною: хто зараз дивиться і хто опиняється під поглядом?\n\nУ переосмисленому образі «Менін» Веласкеса цифрові смуги перетинають зображення. Вони нагадують про поверхню екрана між нами та побаченим: перед нами не безпосередня присутність, а образ, через який ми намагаємося встановити контакт. Водночас сама зустріч поглядів може відчуватися дуже особистою.\n\nУ просторі «Спогадів» робота відкриває питання про те, якими ми залишаємося в чужій пам’яті. Наше уявлення про себе не завжди збігається з образом, який бачать інші. Іноді ми починаємо дивитися на себе саме з цієї зовнішньої позиції, ніби спостерігаємо за власним життям збоку. Затримайтеся біля картини: що ви помічаєте в ній, а що — у власному бажанні відповідати на її погляд?",
+      "en": "You discover a painting and move closer to study it. Yet the figures appear to look outward, toward you. The ordinary role of an observer becomes uncertain: who is looking, and who is being looked at?\n\nIn this reinterpretation of Velázquez's ‘Las Meninas’, digital disruptions cross the image. They remind us that a screen stands between us and what we see. This is a mediated image, not an immediate encounter, yet the exchange of glances can still feel deeply personal.\n\nWithin ‘Memories’, the work asks what versions of ourselves remain in other people's recollections. Our sense of who we are may not match the person others believe they see. Sometimes we even begin to watch our own lives through that external gaze. Stay with the painting: what do you notice in it, and what do you notice in your own wish to respond to its gaze?"
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "vtrchannia",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Втр_чання",
+      "en": "Втр_чання"
+    },
+    "author": {
+      "uk": "Ростислав Фанагей",
+      "en": "Rostyslav Fanahei"
+    },
+    "artifact": {
+      "uk": "стара фотографія",
+      "en": "old photograph"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, це чиясь фотографія. Що на ній ще можна впізнати?",
+      "en": "It looks like someone’s photograph. What can I still recognise?"
+    },
+    "explication": {
+      "uk": "На старій родинній фотографії — сільське подвір’я, тріщини й плями. Погляд намагається відділити зображене від слідів, що перекривають його. Хочеться роздивитися більше, але сама поверхня нагадує: не все вдасться відновити.\n\nУ назві «Втр_чання» бракує літери. Ця відсутність залишає поруч два слова — «втрачання» і «втручання». Ми можемо втрачати зображення через час і водночас змінювати його, намагаючись урятувати. Між бажанням зберегти та прагненням зробити знову виразним виникає напруга: що саме має залишитися?\n\nУ «Спогадах» знайдена фотографія протиставляє бездоганній видимості крихкість конкретного сліду. Її цінність не в тому, наскільки легко прочитати кожну деталь, а в можливості зв’язку з чиєюсь історією. Пошкодження не робить втрату красивою чи бажаною. Воно змушує помітити, що збережене й утрачене можуть бути присутніми одночасно. Дивлячись на цей образ, спробуйте відчути різницю між тим, що ви справді бачите, і тим, що вже домислюєте замість нього.",
+      "en": "An old family photograph shows a rural courtyard beneath cracks and stains. Your eye tries to separate the scene from the damage covering it. You want to see more, but the surface itself reminds you that not everything can be recovered.\n\nThe title ‘Втр_чання’ leaves one letter missing, suspended between the Ukrainian words for losing and intervening. Time can erase an image, while our attempt to rescue it can change it too. What, exactly, are we trying to preserve: a legible picture, or the traces that testify to its history?\n\nIn ‘Memories’, the found photograph contrasts the fragility of a particular trace with the promise of flawless visibility. Its value does not depend on whether every detail can be read. Damage is not romanticised; it simply makes loss impossible to ignore. Look closely at what is actually visible, and at what your imagination supplies in its place."
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "resononsense",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Resononsense",
+      "en": "Resononsense"
+    },
+    "author": {
+      "uk": "Ростислав Фанагей",
+      "en": "Rostyslav Fanahei"
+    },
+    "artifact": {
+      "uk": "фрагмент шкіри",
+      "en": "a patch of skin"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, це шкіра. Чому від самого погляду хочеться здригнутися?",
+      "en": "It looks like skin. Why does the sight of it make me shiver?"
+    },
+    "explication": {
+      "uk": "Зблизька шкіра перестає бути рівною поверхнею. Стають помітними пори, зморшки, волосинки — деталі, повз які легко пройти, коли дивишся на людину лише як на завершений образ. «Resononsense» пропонує затримати погляд саме на цій фактурі. Зображення і звук звертають увагу на власну тілесну реакцію.\n\nУ «Спогадах» така близькість повертає увагу до тілесного виміру досвіду. Не все, що залишається з нами, має вигляд чіткої історії або фотографії. Іноді нагадуванням стає відчуття: напруження, здригання, бажання відсунутися або, навпаки, наблизитися. Тут не потрібно неодмінно впізнати конкретну подію, щоб помітити власну реакцію.\n\nЗайченя біля знахідки ніби відчуває «мурашки», але ця реакція не є інструкцією для глядача. Робота залишає місце і для цікавості, і для незручності, і для спокійного розглядання. Питання виставки про справжнє зміщується від переконливості зображення до уваги до себе: що відбувається зі мною, поки я дивлюся? Поверхня, яку легко було б згладити, стає приводом не поспішати.",
+      "en": "Seen close up, skin ceases to look like a smooth surface. Pores, wrinkles, and individual hairs come into focus: details easily overlooked when we see a person only as a finished image. ‘Resononsense’ asks us to remain with this texture. Image and sound turn attention toward our own bodily response.\n\nIn ‘Memories’, this encounter returns us to the physical dimension of experience. Not everything that stays with us takes the shape of a clear story or photograph. Sometimes a memory leaves a sensation instead: a shiver, tension, an impulse to step away, or the wish to move closer.\n\nThe rabbit appears to get goosebumps near the found object, but its reaction does not prescribe yours. The work makes room for curiosity, discomfort, or calm observation. Its question shifts away from whether a picture is persuasive and toward what happens to us while we look."
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "village",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Чуже село",
+      "en": "A Stranger’s Village"
+    },
+    "author": {
+      "uk": "Анна Голобородько",
+      "en": "Anna Holoborodko"
+    },
+    "artifact": {
+      "uk": "будиночок",
+      "en": "small house"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, я знаю цей дім. Але звідки?",
+      "en": "I think I know this house. But from where?"
+    },
+    "explication": {
+      "uk": "Цей дім легко прийняти за знайомий. Світло, подвір’я, старе дерево, деталі сільського побуту можуть викликати тепло ще до того, як ви встигнете запитати, що саме впізнали. Здається, достатньо затриматися — і спогад повернеться.\n\nАле зображене місце створене генеративним штучним інтелектом. Воно не є фотографією конкретного бабусиного подвір’я, до якого звертається пам’ять. Перед нами переконливий образ знайомого, а не свідчення того, що ми колись тут були. Емоція може бути справжньою, навіть коли місце, яке її викликало, ніколи не існувало саме таким.\n\nУ «Спогадах» будиночок стає входом у цю суперечність. Ми шукаємо особисте, а знаходимо образ, який легко впізнати багатьом. Твір не заперечує тепла, яке виникає під час перегляду. Він пропонує відділити його від упевненості, що перед нами власне минуле. Якої дрібниці бракує цьому дому, щоб він став саме вашим? І чи можна її замінити ще одним, навіть досконалішим зображенням?",
+      "en": "This house may feel familiar at first sight. The light, yard, old wood, and ordinary details of village life can evoke warmth before you have time to ask what you recognise. It seems that if you look long enough, a childhood memory might return.\n\nBut this place was generated by artificial intelligence. It is not a photograph of the particular courtyard that belongs to anyone's lived experience. The image convincingly resembles something remembered; it does not prove that we were ever there. A feeling can be real even when the place that triggers it never existed in this form.\n\nIn ‘Memories’, the small house opens onto that contradiction. We seek something personal and find a scene many people might recognise. The work does not deny the warmth of that response. It asks which tiny detail would make this house genuinely yours, and whether another, even more polished image could ever replace it."
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "freed_time",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Вивільнений час",
+      "en": "Time Set Free"
+    },
+    "author": {
+      "uk": "Орина Бойко",
+      "en": "Oryna Boiko"
+    },
+    "artifact": {
+      "uk": "ноутбук",
+      "en": "laptop"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, роботу вже зроблено. Чому тоді знову приходить завдання?",
+      "en": "The work seems finished. Why is there another task?"
+    },
+    "explication": {
+      "uk": "Завдання виконано швидше, ніж очікувалося. Штучний інтелект допоміг упоратися з рутиною, результат надіслано — здається, тепер можна взяти книжку або відповісти близькій людині. Але замість паузи надходить наступне доручення.\n\nВ інтерактивній роботі ця ситуація повторюється: ви самі перетягуєте готові файли й здаєте завдання. Повідомлення частішають, спливні вікна заповнюють екран, а людина поступово губиться за потоком роботи. Зовні все виглядає успішно: завдання завершуються, продуктивність зростає. Усередині цього успіху зникає можливість розпоряджатися власним часом. Те, що мало звільнити, стає підставою вимагати більше.\n\nУ «Спогадах» ця робота стосується не лише виснаження. Вона показує час, який міг перетворитися на розмову, читання чи просте перебування поруч, але так і не став прожитим поза роботою. Ми втрачаємо тут не готовий спогад, а можливість його створити. Ноутбук посеред лісу нагадує, як легко вимога бути продуктивними наздоганяє нас навіть у просторі зупинки. Хто вирішує, чим буде заповнено хвилини, які вдалося заощадити?",
+      "en": "A task is completed sooner than expected. Artificial intelligence has helped with routine work, the result has been sent, and for an instant there may be time to pick up a book or answer a message from someone close. Then another assignment arrives.\n\nIn this interactive work, the pattern repeats: you drag the finished files and submit the tasks yourself. Notifications multiply, pop-up windows fill the screen, and the worker gradually disappears behind the stream of demands. From the outside, everything looks successful: more tasks are finished, productivity increases. Inside that success, the person loses the ability to decide what happens to their own time. What was meant to free them becomes a reason to demand still more.\n\nIn ‘Memories’, the work is also about experiences that never get a chance to become memories: a conversation, a moment of rest, or simply being with someone. The laptop in the forest asks who gets to decide what we do with the minutes that technology has saved."
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "frame_weight",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Кадр має вагу",
+      "en": "A Frame Has Weight"
+    },
+    "author": {
+      "uk": "Анастасія Жайворонок",
+      "en": "Anastasiia Zhaivoronok"
+    },
+    "artifact": {
+      "uk": "висохлий струмок",
+      "en": "dry stream"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, тут колись текла вода. Що залишилося замість неї?",
+      "en": "It looks as though water once flowed here. What remains?"
+    },
+    "explication": {
+      "uk": "У склянці розгортається пишний пейзаж: ліс, річка, туман. Погляд спочатку затримується на його красі й лише потім помічає інше — води майже немає. На дні залишається тонка плівка, на стінках — сліди того, що пішло.\n\nАвторська метафора повертає цифровому образу матеріальну вагу. Легкість появи картинки на екрані приховує від погляду ресурси й обладнання, потрібні для її створення. Пейзаж ніби займає місце води: чим щедрішим здається зображення, тим виразнішою стає порожнеча довкола нього. Це не розрахунок витрат окремої генерації, а спосіб зробити невидиму ціну відчутною.\n\nУ «Спогадах» висохлий струмок веде до питання не тільки про збереження образів, а й про середовище, з якого народжується досвід. Можна створити переконливу картинку річки, але вона не замінить можливості почути воду й побути біля неї. Твір не закликає відмовитися від технології: він просить не плутати появу нового образу з відсутністю втрат. Що змінюється, коли ми помічаємо не лише зображене, а й те, чого в кадрі вже немає?",
+      "en": "Inside a glass, a lavish landscape unfolds: forest, river, mist. At first, your eyes settle on its beauty. Only afterwards do you notice the almost empty glass: a thin film remains at the bottom, and marks on the sides suggest water that is no longer there.\n\nThe artist's metaphor returns physical weight to the digital image. The apparent ease of producing a picture hides the equipment and resources involved. The richer the miniature landscape looks, the more striking the emptiness around it becomes. This image is not a measurement of the water or energy used in one particular generation. It is a way of making an often invisible cost perceptible.\n\nIn ‘Memories’, a dry stream leads us beyond the preservation of images to the environments in which experience becomes possible. We can generate a compelling picture of a river, but a picture cannot replace being there, hearing the water, and spending time beside it."
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "convenient_self",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Зручна версія себе",
+      "en": "A Convenient Version of Yourself"
+    },
+    "author": {
+      "uk": "Олександра Малафей",
+      "en": "Oleksandra Malafei"
+    },
+    "artifact": {
+      "uk": "маска",
+      "en": "mask"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, це обличчя, якого від мене чекають. А де моє?",
+      "en": "This looks like the face they expect of me. Where is mine?"
+    },
+    "explication": {
+      "uk": "Бути сильною, успішною, спокійною, красивою, завжди усміхненою. Кожна маска пропонує зрозумілу версію людини — таку, яку легко прийняти й від якої знають, чого очікувати. Та чи залишається серед цих облич місце для того, що людина відчуває насправді?\n\nУ центрі твору — самотня постать, оточена порцеляновими масками. Вони уособлюють не лише приховування емоцій, а й вимоги, до яких можна настільки звикнути, що власне бажання вже важко відрізнити від чужого. Проблема не в існуванні соціальних ролей. Вона починається там, де зникає свобода обирати їх або відмовлятися від них.\n\nУ «Спогадах» робота порушує питання про пам’ять про себе. Ким ми згадуємо себе в певний період життя: людиною з власними почуттями чи образом, який тоді вдавалося підтримувати? Маска може зберегти зовнішню впізнаваність і водночас сховати внутрішній досвід. Затримавшись біля неї, спробуйте запитати не «яку версію мене приймуть?», а «чи можу я зараз не відповідати очікуваному образу?»",
+      "en": "Strong, successful, calm, beautiful, always smiling: each mask presents a version of a person that is easy for others to recognise and accept. But is there room among these faces for what someone actually feels?\n\nAt the centre stands a solitary figure surrounded by porcelain masks. They represent not just hidden emotions but expectations we may follow for so long that our own wishes become difficult to distinguish from other people's demands. Social roles are not necessarily false. The problem begins when we lose the freedom to choose them, change them, or step away.\n\nIn ‘Memories’, the work asks what we remember about ourselves. Looking back at a period of our lives, do we recall our feelings, or only the image we managed to maintain? A mask can preserve outward recognisability while concealing lived experience. Instead of asking which version others will accept, can we allow ourselves not to perform one at all?"
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "telephone",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Зіпсований телефон. Сто поколінь",
+      "en": "Broken Telephone: One Hundred Generations"
+    },
+    "author": {
+      "uk": "Вероніка Кулинич",
+      "en": "Veronika Kulynych"
+    },
+    "artifact": {
+      "uk": "диктофон",
+      "en": "voice recorder"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, це чийсь голос. Що від нього залишиться після ста переказів?",
+      "en": "It sounds like someone’s voice. What will survive a hundred retellings?"
+    },
+    "explication": {
+      "uk": "На початку є три людські оригінали: фотографія подвір’я з рукописною вивіскою, портрет людини з ластовинням і голос бабусі, яка розповідає історію своїм говором. Кожен містить деталі, що роблять його не просто впізнаваним, а конкретним.\n\nДалі починається ланцюг переказів. Одна нейромережа описує матеріал, інша створює за описом нове зображення або звук, і результат знову стає вихідною точкою. У задумі цей цикл повторюється сто разів. Глядач порівнює покоління й помічає, як віддаляються рукопис, особливості обличчя та інтонація. Це художня модель втрати під час повторного опосередкування, а не обіцянка незмінного збереження.\n\nУ «Спогадах» диктофон здається предметом, якому можна довірити голос. Проте робота запитує, чи достатньо самого існування копії, щоб зберегти людину в її неповторності. Запис може залишитися, а важлива відмінність — зникнути. Що саме ми прагнемо передати далі: зміст розповіді, звучання голосу чи присутність того, хто говорив? І хто пам’ятатиме різницю, коли оригінал перестануть слухати?",
+      "en": "At the beginning are three human originals: a photograph of a courtyard with a handwritten sign, a freckled face, and an older woman's voice telling a story in her own dialect. Each contains details that make it particular, not merely recognisable.\n\nThen a chain of retellings begins. One network describes the material; another reproduces an image or sound from that description. The process repeats across one hundred generations. The viewer sees how handwriting, facial features, and inflection drift toward generic versions. In the supplied prototype, these changes are simulated in code, rather than generated live by successive AI models.\n\nIn ‘Memories’, a recorder seems like a device that can safeguard a voice. But is the existence of a copy enough to preserve what makes that person distinct? A recording may remain while something essential disappears. What do we hope to pass on: the content of a story, the character of a voice, or the presence of the person who spoke?"
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  },
+  {
+    "id": "shadows",
+    "isEnvironment": false,
+    "title": {
+      "uk": "Наші замкнуті тіні",
+      "en": "Our Locked Shadows"
+    },
+    "author": {
+      "uk": "Устина Лосицька",
+      "en": "Ustyna Losytska"
+    },
+    "artifact": {
+      "uk": "м’яч",
+      "en": "ball"
+    },
+    "rabbitPhrase": {
+      "uk": "Схоже, тут щось залишилося. Чи готові ми зупинитися поруч?",
+      "en": "Something seems to have been left here. Am I ready to stay with it?"
+    },
+    "explication": {
+      "uk": "Герой рухається замком, у якому присутні тіні. Вони не зникають від самого бажання пройти далі. Щоб тінь розчинилася, біля неї потрібно затриматися. Увага стає не поясненням після перегляду, а умовою самої зустрічі.\n\nУ «Спогадах» цей жест пропонує інше ставлення до того, що ми воліли б обійти. Не кожна втрата пов’язана зі стиранням зображення чи зникненням запису. Щось може залишатися поруч, але не входити до історії, яку ми готові розповідати про себе. Зупинка біля тіні дозволяє не відштовхувати цю присутність одразу.\n\nРобота не мусить бути останньою на шляху: до неї можна потрапити раніше й повернутися знову. Два різні, але живі замки у фіналі не зводять досвід до єдиної правильної форми. У кураторському прочитанні це можливість залишити місце для складності, а не виправити себе до бездоганності. Знайдений м’яч лише приводить до цієї зустрічі; далі важливо вже не відшукати черговий предмет, а побути з тим, що відкрилося.",
+      "en": "A figure moves through a castle inhabited by shadows. They do not disappear simply because the figure wishes to continue. For a shadow to dissolve, someone must stay beside it. Attention becomes part of the encounter, rather than something applied after the fact.\n\nWithin ‘Memories’, this gesture offers another way of approaching what we would rather pass by. Loss is not always the erasure of an image or the disappearance of a recording. Something may remain near us while never becoming part of the story we are prepared to tell about ourselves. Staying with the shadow makes it possible not to reject that presence immediately.\n\nThis work need not be the last stop: it can be discovered early and revisited later. Its ending, with two different yet living castles, allows experience to remain complex rather than forcing it into one correct form. The found ball is only an invitation; what matters is the time spent with what the work reveals."
+    },
+    "status": "artwork-not-integrated",
+    "media": null
+  }
+]

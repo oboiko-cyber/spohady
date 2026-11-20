@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Діагностика: «Resononsense»</title>
+<style>body{font-family:system-ui,sans-serif;background:#0b0f17;color:#e2e8f0;margin:0;padding:20px;line-height:1.5}
+li{margin:.3rem 0}.ok{color:#6ee7b7}.bad{color:#fca5a5}.warn{color:#fde68a}button{font:inherit;padding:10px 16px;min-height:44px}a{color:#7dd3fc}
+button:focus-visible,a:focus-visible{outline:3px solid #fde68a;outline-offset:2px}</style></head>
+<body><p><a href="index.html">← Діагностика</a></p>
+<h1>«Resononsense»</h1><p>Статус: <strong id="status">перевірка…</strong></p>
+<ul id="report"></ul>
+<p><button id="launch" disabled>Запустити скетч (звук)</button></p>
+<script>window.DIAG={sketch:'../sources/resononsense.from-chat.js',sound:true,assets:[{path:'scene.jpg',required:true,note:'авторське зображення не надано'},{path:'sound.mp3',required:true,note:'авторський звук не надано'}],notes:['Потрібні p5 + p5.sound і WebGL. Перевірка шейдера й звуку можлива після scene.jpg / sound.mp3.']};</script>
+<script src="diag.js"></script></body></html>

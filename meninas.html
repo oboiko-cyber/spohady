@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Діагностика: «Погляд Меніни»</title>
+<style>body{font-family:system-ui,sans-serif;background:#0b0f17;color:#e2e8f0;margin:0;padding:20px;line-height:1.5}
+li{margin:.3rem 0}.ok{color:#6ee7b7}.bad{color:#fca5a5}.warn{color:#fde68a}button{font:inherit;padding:10px 16px;min-height:44px}a{color:#7dd3fc}
+button:focus-visible,a:focus-visible{outline:3px solid #fde68a;outline-offset:2px}</style></head>
+<body><p><a href="index.html">← Діагностика</a></p>
+<h1>«Погляд Меніни»</h1><p>Статус: <strong id="status">перевірка…</strong></p>
+<ul id="report"></ul>
+<p><button id="launch" disabled>Запустити скетч (запросить камеру)</button></p>
+<script>window.DIAG={sketch:'../sources/meninas.from-chat.js',sound:false,assets:[{path:'Глітч-портал у палаці Менін.png',required:true,note:'авторське зображення ще не надано'}],notes:['Скетч викликає createCapture(VIDEO): камера запитується браузером лише після кліку й лише якщо PNG наявний. Автозапуску немає.']};</script>
+<script src="diag.js"></script></body></html>

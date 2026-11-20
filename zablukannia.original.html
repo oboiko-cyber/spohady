@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заблукання (Lost in Consciousness)</title>
+    <!-- Tailwind CSS for modern responsive overlay layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #07090e;
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0;
+            user-select: none;
+        }
+
+        .font-serif-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Smooth canvas background blur effect */
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        /* Custom scrollbar for modal */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.2);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.4);
+        }
+
+        /* Glassmorphism panel styling */
+        .glass-panel {
+            background: rgba(13, 17, 23, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .glow-button {
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 15px rgba(186, 230, 253, 0.25);
+            border-color: rgba(186, 230, 253, 0.4);
+        }
+    </style>
+</head>
+<body class="relative w-full h-full select-none overflow-hidden">
+
+    <!-- Interactive Canvas Layer -->
+    <canvas id="artCanvas"></canvas>
+
+    <!-- Top Left Header HUD -->
+    <header class="absolute top-6 left-6 md:top-8 md:left-8 z-10 pointer-events-none max-w-md">
+        <h1 class="font-serif-title text-4xl md:text-5xl font-light tracking-wide text-slate-100 drop-shadow-md">
+            «Заблукання»
+        </h1>
+        <p class="font-serif-title italic text-lg md:text-xl text-sky-200/80 mt-1 leading-relaxed">
+            Як знайти вихід з цього жахіття? Чи справді існує єдиний правильний шлях?
+        </p>
+    </header>
+
+    <!-- AI Forest Whispers Floating Banner (Gemini Powered) -->
+    <div id="aiWhisperBox" class="absolute top-36 left-6 md:top-40 md:left-8 z-10 glass-panel max-w-sm p-4 rounded-xl text-xs text-sky-100/90 border border-sky-500/20 shadow-lg transition-all duration-500 opacity-90">
+        <!-- Shadow Quest Status Banner -->
+        <div id="shadowStatusMsg" class="text-[11px] font-serif italic text-cyan-300 opacity-0 transition-opacity duration-500 mt-1">
+            Знайдіть загаслий ліхтарик у темряві...
+        </div>
+        <p id="aiWhisperText" class="italic font-serif text-sm leading-snug text-slate-200 mt-1">
+            "Темрява лише чекає, поки ти засумніваєшся у власному світлі..."
+        </p>
+    </div>
+
+    <!-- Top Right Controls HUD -->
+    <div class="absolute top-6 right-6 md:top-8 md:right-8 z-20 flex items-center gap-3">
+        <!-- Audio Toggle Button -->
+        <button id="audioBtn" class="glass-panel glow-button px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs text-sky-200 hover:text-white cursor-pointer active:scale-95">
+            <svg id="audioIconOff" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
+            <svg id="audioIconOn" class="w-4 h-4 text-amber-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+            <span id="audioText">Звук: Вимк</span>
+        </button>
+
+        <!-- Talk to Forest Modal Button -->
+        <button id="askAiBtn" class="glass-panel glow-button px-4 py-2.5 rounded-full flex items-center gap-2 text-xs text-amber-200/90 hover:text-amber-100 cursor-pointer active:scale-95 border-amber-500/30">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>Поговорити з Лісом</span>
+        </button>
+
+        <!-- Concept Project Button -->
+        <button id="conceptBtn" class="glass-panel glow-button px-4 py-2.5 rounded-full flex items-center gap-2 text-xs text-slate-300 hover:text-white cursor-pointer active:scale-95">
+            <span>Про проєкт</span>
+        </button>
+    </div>
+
+    <!-- Bottom Left Instructions HUD -->
+    <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-10 pointer-events-none hidden sm:block text-xs text-slate-400/80 space-y-1">
+        <p id="instructionMain" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span> Ведіть курсор / палець: ведіть зайченя з ліхтариком</p>
+        <p id="instructionSub" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span> Утримуйте мишку: затримуйте виснаження світла</p>
+        <p id="instructionSpace" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce"></span> Пробіл [SPACE]: розпалити ліхтарик (лише у стані світла)</p>
+    </div>
+
+    <!-- Light Level Indicator Bar -->
+    <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 z-10 flex flex-col items-end gap-1.5 pointer-events-none">
+        <div id="lightStatusLabel" class="text-[10px] uppercase tracking-widest text-slate-400">Світло свідомості</div>
+        <div id="lightBarLabel" class="text-[10px] text-slate-500 font-sans hidden">Світло свідомості</div>
+        <div class="w-32 h-2 glass-panel rounded-full overflow-hidden p-0.5 border border-slate-700/50">
+            <div id="lightBar" class="h-full bg-gradient-to-r from-amber-500 to-amber-200 rounded-full transition-all duration-200" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- Concept Description Modal -->
+    <div id="conceptModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel max-w-2xl w-full max-h-[85vh] rounded-2xl p-6 md:p-8 overflow-y-auto text-slate-300 relative border border-slate-700/60">
+            <button id="closeModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white transition p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <h2 class="font-serif-title text-3xl font-light text-slate-100 mb-1">Заблукання</h2>
+            <p class="text-xs uppercase tracking-widest text-sky-300/70 mb-6">Концепція арт-проєкту</p>
+
+            <div class="space-y-4 text-sm md:text-base leading-relaxed text-slate-300/90 font-light">
+                <p>
+                    <strong class="text-slate-100 font-normal">«Заблукання»</strong> – це візуальна метафора внутрішнього загублення людини у власних думках, страхах і сумнівах, де свідомість перетворюється на темний ліс із безліччю заплутаних стежок, а пошук виходу стає спробою знайти шлях до себе.
+                </p>
+                <p>
+                    У центрі твору маленька істота, зайченя з маленьким ліхтариком, яке опиняється посеред похмурого, майже непроглядного лісу. Воно не знає, як сюди потрапило, куди йти та чи існує взагалі правильний шлях. Навколо високі дерева, переплетені гілки, густі зарості й стежки, які зникають у темряві або ведуть у глухий кут.
+                </p>
+                <p>
+                    Коли внутрішнє світло згасає, зайченя зливається з власною тінню — воно перетворюється на своего Альтер-Его. Тільки розпаливши світло знову, можна повернути контроль над власною свідомістю.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Forest Conversation Dialogue Modal -->
+    <div id="aiModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel max-w-lg w-full rounded-2xl p-6 text-slate-300 relative border border-emerald-500/30 shadow-2xl flex flex-col max-h-[80vh]">
+            <button id="closeAiModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <div class="flex items-center gap-3 mb-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <h2 class="font-serif-title text-2xl font-light text-emerald-100">Голос Лісу Свідомості</h2>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">Ліс завжди поруч і готовий підтримати вас. Запитайте його про що завгодно чи поділіться тривогою.</p>
+
+            <div id="aiChatHistory" class="flex-1 overflow-y-auto space-y-3 p-3 bg-slate-950/50 rounded-xl border border-slate-800 text-xs md:text-sm mb-4 min-h-[160px]">
+                <div class="text-emerald-200/70 italic p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/10">
+                    "Я тут, поруч. Мій мох м'який, а вітер заколисує страхи... Про що ти хочеш запитати мене, мандрівнику?"
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <div class="flex gap-2">
+                    <input id="aiQueryInput" type="text" placeholder="Напишіть Лісу (наприклад: 'Хто така моя Тінь?')" class="flex-1 bg-slate-900/80 border border-slate-700 focus:border-emerald-500/60 rounded-xl px-3.5 py-2 text-xs text-slate-200 outline-none transition placeholder:text-slate-500">
+                    <button id="submitAiQuery" class="bg-emerald-700/60 hover:bg-emerald-600/80 text-emerald-100 px-4 py-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-2 border border-emerald-500/30 disabled:opacity-50 cursor-pointer">
+                        <span id="aiSubmitText">Шепнути Лісу</span>
+                        <svg id="aiSpinner" class="w-3.5 h-3.5 animate-spin hidden text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    </button>
+                </div>
+                <div class="flex justify-between items-center px-1">
+                    <button id="clearChatBtn" class="text-[10px] text-slate-500 hover:text-slate-300 underline transition">Очистити пам'ять розмови</button>
+                    <span class="text-[10px] text-slate-500">Модель: Gemini AI</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        const canvas = document.getElementById('artCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        let isMouseDown = false;
+
+        let mouse = {
+            x: width / 2,
+            y: height / 2,
+            targetX: width / 2,
+            targetY: height / 2,
+            isMoving: false
+        };
+
+        const rabbit = {
+            x: width / 2,
+            y: height / 2,
+            angle: 0,
+            speed: 0.05,
+            lanternFlicker: 0,
+            earOffset: 0,
+            lightLevel: 1.0,
+            transformationProgress: 0,
+            isTransformed: false
+        };
+
+        // Кількість перезапусків світла та множник прискорення
+        let reigniteCount = 0;
+        let baseDecayRate = 0.0006;
+        let currentDecayRate = baseDecayRate;
+        const decayAcceleration = 1.35; // Збільшення швидкості виснаження на 35% кожного разу
+
+        const AWAKEN_THRESHOLD = 5;
+        let isForestAwakened = false;
+        let forestAwakenTransition = 0;
+        let forestFireflies = [];
+
+        const droppedLantern = {
+            x: 0,
+            y: 0,
+            active: false,
+            pickupRadius: 35
+        };
+
+        const alterEgo = {
+            x: width / 2 - 200,
+            y: height / 2 - 200,
+            angle: 0,
+            orbitAngle: 0,
+            active: false,
+            opacity: 0,
+            speed: 0.085
+        };
+
+        let isGamePaused = false;
+        let animationFrameId = null;
+
+        let trees = [];
+        let paths = [];
+        let reigniteGlowAlpha = 0;
+        let footstepParticles = [];
+        let ambientFog = [];
+        let glowingEyes = [];
+        let hasTriggeredTransformedWhisper = false;
+
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let masterGain = null;
+
+        function initAudio() {
+            if (audioCtx) return;
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+
+            masterGain = audioCtx.createGain();
+            masterGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            masterGain.connect(audioCtx.destination);
+        }
+
+        function dropLanternInWoods() {
+            let angle = Math.random() * Math.PI * 2;
+            let distance = 280 + Math.random() * 260;
+            
+            let lx = rabbit.x + Math.cos(angle) * distance;
+            let ly = rabbit.y + Math.sin(angle) * distance;
+
+            droppedLantern.x = Math.max(80, Math.min(width - 80, lx));
+            droppedLantern.y = Math.max(80, Math.min(height - 80, ly));
+            droppedLantern.active = true;
+
+            const shadowMsg = document.getElementById('shadowStatusMsg');
+            if (shadowMsg) shadowMsg.classList.remove('opacity-0');
+            
+            const lightBarLabel = document.getElementById('lightBarLabel');
+            if (lightBarLabel) {
+                lightBarLabel.innerText = "Тіньова Свідомість (Знайдіть ліхтарик)";
+                lightBarLabel.classList.add('text-cyan-400');
+            }
+
+            const instMain = document.getElementById('instructionMain');
+            if (instMain) instMain.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span> Ви перебуваєте в стані Тіні (Альтер-его)';
+            
+            const instSub = document.getElementById('instructionSub');
+            if (instSub) instSub.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span> Шукайте слабке сяйво загубленого ліхтарика серед хащів!';
+        }
+
+        function toggleAudio() {
+            if (!audioCtx) {
+                initAudio();
+                isAudioPlaying = true;
+            } else if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+                isAudioPlaying = true;
+            } else if (audioCtx.state === 'running') {
+                audioCtx.suspend();
+                isAudioPlaying = false;
+            }
+
+            document.getElementById('audioIconOff').classList.toggle('hidden', isAudioPlaying);
+            document.getElementById('audioIconOn').classList.toggle('hidden', !isAudioPlaying);
+            document.getElementById('audioText').innerText = isAudioPlaying ? "Звук: Увімк" : "Звук: Вимк";
+        }
+
+        class Tree {
+            constructor(x, y, scale) {
+                this.x = x;
+                this.y = y;
+                this.scale = scale;
+                this.branches = [];
+                this.seed = Math.random() * 100;
+                this.generateBranches();
+            }
+
+            generateBranches() {
+                const depth = Math.floor(4 + Math.random() * 2);
+                this.branches = this.buildBranch(0, 0, -Math.PI / 2, 70 * this.scale, depth);
+            }
+
+            buildBranch(x, y, angle, length, depth) {
+                if (depth === 0) return [];
+                const endX = x + Math.cos(angle) * length;
+                const endY = y + Math.sin(angle) * length;
+
+                const branch = {
+                    x1: x, y1: y,
+                    x2: endX, y2: endY,
+                    thickness: depth * 1.8 * this.scale,
+                    isTip: depth === 1
+                };
+
+                const subBranches = [branch];
+                const numSplits = 2 + (Math.random() < 0.3 ? 1 : 0);
+
+                for (let i = 0; i < numSplits; i++) {
+                    const spread = 0.4 + Math.random() * 0.3;
+                    const splitAngle = angle + (i % 2 === 0 ? spread : -spread) + (Math.random() - 0.5) * 0.2;
+                    const nextLength = length * (0.65 + Math.random() * 0.2);
+                    subBranches.push(...this.buildBranch(endX, endY, splitAngle, nextLength, depth - 1));
+                }
+
+                return subBranches;
+            }
+
+            draw(ctx, rabbitX, rabbitY, lightPower) {
+                const distToRabbit = Math.hypot(this.x - rabbitX, this.y - rabbitY);
+                const maxLight = (380 + forestAwakenTransition * 300) * Math.max(0.2, lightPower);
+                const lightAlpha = Math.max(0.05 + forestAwakenTransition * 0.35, 1 - distToRabbit / maxLight);
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+
+                const sway = Math.sin(Date.now() * 0.001 + this.seed) * (0.03 + forestAwakenTransition * 0.02);
+                ctx.rotate(sway);
+
+                ctx.lineCap = 'round';
+
+                for (let b of this.branches) {
+                    ctx.beginPath();
+                    ctx.lineWidth = b.thickness;
+                    
+                    if (forestAwakenTransition > 0) {
+                        const awakenR = Math.round(18 + forestAwakenTransition * 34);
+                        const awakenG = Math.round(26 + forestAwakenTransition * 120);
+                        const awakenB = Math.round(38 + forestAwakenTransition * 70);
+                        ctx.strokeStyle = `rgba(${awakenR}, ${awakenG}, ${awakenB}, ${lightAlpha})`;
+                    } else if (distToRabbit < 220 * lightPower) {
+                        ctx.strokeStyle = `rgba(35, 48, 68, ${lightAlpha})`;
+                    } else {
+                        ctx.strokeStyle = `rgba(14, 20, 30, ${lightAlpha * 0.8})`;
+                    }
+                    ctx.moveTo(b.x1, b.y1);
+                    ctx.lineTo(b.x2, b.y2);
+                    ctx.stroke();
+
+                    if (b.isTip && forestAwakenTransition > 0.1) {
+                        ctx.fillStyle = `rgba(167, 243, 208, ${lightAlpha * forestAwakenTransition * 0.7})`;
+                        ctx.beginPath();
+                        ctx.arc(b.x2, b.y2, 3.5 * this.scale * forestAwakenTransition, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                ctx.restore();
+            }
+        }
+
+        class LabyrinthPath {
+            constructor() {
+                this.points = [];
+                this.generatePoints();
+            }
+
+            generatePoints() {
+                this.points = [];
+                let currX = Math.random() * width;
+                let currY = Math.random() * height;
+                this.points.push({ x: currX, y: currY });
+
+                for (let i = 0; i < 6; i++) {
+                    currX += (Math.random() - 0.5) * 350;
+                    currY += (Math.random() - 0.5) * 350;
+                    this.points.push({ x: currX, y: currY });
+                }
+            }
+
+            draw(ctx, rabbitX, rabbitY, lightPower) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(this.points[0].x, this.points[0].y);
+
+                for (let i = 1; i < this.points.length - 1; i++) {
+                    const xc = (this.points[i].x + this.points[i + 1].x) / 2;
+                    const yc = (this.points[i].y + this.points[i + 1].y) / 2;
+                    ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, xc, yc);
+                }
+
+                let minDist = Infinity;
+                for (let p of this.points) {
+                    let d = Math.hypot(p.x - rabbitX, p.y - rabbitY);
+                    if (d < minDist) minDist = d;
+                }
+
+                const alpha = Math.max(0.01, Math.min(0.25 * lightPower, 1 - minDist / (300 * Math.max(0.3, lightPower))));
+                ctx.strokeStyle = `rgba(125, 211, 252, ${alpha})`;
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([8, 12]);
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function initScene() {
+            trees = [];
+            paths = [];
+            ambientFog = [];
+            glowingEyes = [];
+            forestFireflies = [];
+
+            const treeCount = Math.floor((width * height) / 14000);
+            for (let i = 0; i < treeCount; i++) {
+                const scale = 0.6 + Math.random() * 0.8;
+                trees.push(new Tree(Math.random() * width, Math.random() * height, scale));
+            }
+
+            for (let i = 0; i < 7; i++) {
+                paths.push(new LabyrinthPath());
+            }
+
+            for (let i = 0; i < 40; i++) {
+                ambientFog.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: 120 + Math.random() * 180,
+                    alpha: 0.02 + Math.random() * 0.04,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.2
+                });
+            }
+
+            for (let i = 0; i < 35; i++) {
+                forestFireflies.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: 1.5 + Math.random() * 2.5,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+
+            for (let i = 0; i < 12; i++) {
+                glowingEyes.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    blink: Math.random() * 100,
+                    scale: 0.8 + Math.random() * 0.5
+                });
+            }
+        }
+
+        function lerpColor(color1, color2, factor) {
+            const result = color1.map((c, i) => Math.round(c + factor * (color2[i] - c)));
+            return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
+        }
+
+        function drawRabbit(ctx, r) {
+            ctx.save();
+            ctx.translate(r.x, r.y);
+
+            const isFacingLeft = Math.cos(r.angle) < 0;
+            const t = r.transformationProgress;
+
+            const flicker = (Math.sin(Date.now() * 0.01) * 8 + (Math.random() - 0.5) * 4) * r.lightLevel;
+            const lanternRadius = Math.max(20, (260 + flicker) * r.lightLevel);
+            
+            if (t < 0.8) {
+                const glowGradient = ctx.createRadialGradient(0, 0, 5, 0, 0, lanternRadius);
+                glowGradient.addColorStop(0, `rgba(254, 243, 199, ${0.45 * r.lightLevel * (1 - t)})`);
+                glowGradient.addColorStop(0.3, `rgba(251, 191, 36, ${0.15 * r.lightLevel * (1 - t)})`);
+                glowGradient.addColorStop(0.7, `rgba(56, 189, 248, ${0.04 * r.lightLevel * (1 - t)})`);
+                glowGradient.addColorStop(1, 'rgba(7, 9, 14, 0)');
+
+                ctx.fillStyle = glowGradient;
+                ctx.beginPath();
+                ctx.arc(0, 0, lanternRadius, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                const shadowGrd = ctx.createRadialGradient(0, 0, 2, 0, 0, 50);
+                shadowGrd.addColorStop(0, `rgba(15, 23, 42, ${0.8 * t})`);
+                shadowGrd.addColorStop(0.6, `rgba(30, 27, 75, ${0.5 * t})`);
+                shadowGrd.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.fillStyle = shadowGrd;
+                ctx.beginPath();
+                ctx.arc(0, 0, 50, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.scale(isFacingLeft ? -1 : 1, 1);
+
+            const breath = Math.sin(Date.now() * 0.005) * 0.8;
+
+            const tailColor = lerpColor([248, 250, 252], [9, 13, 22], t);
+            const bodyColor = lerpColor([226, 232, 240], [9, 13, 22], t);
+            const headColor = lerpColor([241, 245, 249], [9, 13, 22], t);
+
+            ctx.fillStyle = tailColor;
+            ctx.beginPath();
+            ctx.arc(-14, 2, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = bodyColor;
+            ctx.beginPath();
+            ctx.ellipse(-2, 4, 12, 10 + breath, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = headColor;
+            ctx.beginPath();
+            ctx.arc(6, -6, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            const earSway = Math.sin(Date.now() * 0.008) * 0.1;
+            ctx.fillStyle = bodyColor;
+            ctx.beginPath();
+            ctx.ellipse(3, -18, 3, 9, -0.2 + earSway, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(8, -17, 2.8, 8, 0.1 + earSway, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (t < 0.5) {
+                ctx.fillStyle = `rgba(251, 207, 232, ${1 - t * 2})`;
+                ctx.beginPath();
+                ctx.arc(3, -18, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (t > 0.3) {
+                ctx.fillStyle = '#38bdf8';
+                ctx.shadowColor = '#0284c7';
+                ctx.shadowBlur = 8 * t;
+                ctx.beginPath();
+                ctx.arc(9, -7, 1.6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            } else {
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath();
+                ctx.arc(9, -7, 1.3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (t < 0.9) {
+                ctx.save();
+                ctx.globalAlpha = 1 - t;
+                const lanternX = 16;
+                const lanternY = 2;
+
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(5, 0);
+                ctx.lineTo(lanternX, lanternY - 4);
+                ctx.stroke();
+
+                ctx.strokeStyle = '#78350f';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(lanternX, lanternY - 4);
+                ctx.lineTo(lanternX, lanternY);
+                ctx.stroke();
+
+                ctx.fillStyle = r.lightLevel > 0.3 ? '#fbbf24' : '#78350f';
+                ctx.beginPath();
+                ctx.arc(lanternX, lanternY + 3, 3.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.1, r.lightLevel)})`;
+                ctx.beginPath();
+                ctx.arc(lanternX, lanternY + 3, 1.8 * r.lightLevel, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        function drawAlterEgo(ctx, ego) {
+            if (ego.opacity <= 0.01) return;
+
+            ctx.save();
+            ctx.translate(ego.x, ego.y);
+            ctx.globalAlpha = ego.opacity;
+
+            const isFacingLeft = Math.cos(ego.angle) < 0;
+
+            const shadowGrd = ctx.createRadialGradient(0, 0, 2, 0, 0, 45);
+            shadowGrd.addColorStop(0, 'rgba(15, 23, 42, 0.9)');
+            shadowGrd.addColorStop(0.6, 'rgba(30, 27, 75, 0.4)');
+            shadowGrd.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = shadowGrd;
+            ctx.beginPath();
+            ctx.arc(0, 0, 45, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.scale(isFacingLeft ? -1 : 1, 1);
+
+            ctx.fillStyle = '#090d16';
+            ctx.beginPath();
+            ctx.arc(-14, 2, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(-2, 4, 12, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(6, -6, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(3, -18, 3, 9, -0.2, 0, Math.PI * 2);
+            ctx.ellipse(8, -17, 2.8, 8, 0.1, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.shadowColor = '#0284c7';
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.arc(8, -7, 1.6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawDroppedLantern(ctx, lantern) {
+            if (!lantern.active) return;
+
+            ctx.save();
+            ctx.translate(lantern.x, lantern.y);
+
+            const pulse = Math.sin(Date.now() * 0.005) * 4;
+            const lanternGrd = ctx.createRadialGradient(0, 0, 2, 0, 0, 35 + pulse);
+            lanternGrd.addColorStop(0, 'rgba(251, 191, 36, 0.6)');
+            lanternGrd.addColorStop(0.5, 'rgba(245, 158, 11, 0.2)');
+            lanternGrd.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            ctx.fillStyle = lanternGrd;
+            ctx.beginPath();
+            ctx.arc(0, 0, 35 + pulse, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#78350f';
+            ctx.fillRect(-3, -2, 6, 8);
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(0, 1, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function animate() {
+            if (isGamePaused) return;
+
+            if (isForestAwakened) {
+                forestAwakenTransition = Math.min(1.0, forestAwakenTransition + 0.008);
+            }
+
+            const bgR = Math.round(7 + forestAwakenTransition * 15);
+            const bgG = Math.round(9 + forestAwakenTransition * 35);
+            const bgB = Math.round(14 + forestAwakenTransition * 30);
+            ctx.fillStyle = `rgba(${bgR}, ${bgG}, ${bgB}, 0.25)`;
+            ctx.fillRect(0, 0, width, height);
+
+            if (reigniteGlowAlpha > 0.001) {
+                const flashGradient = ctx.createRadialGradient(
+                    rabbit.x, rabbit.y, 10,
+                    rabbit.x, rabbit.y, Math.max(width, height) * 0.8
+                );
+                flashGradient.addColorStop(0, `rgba(254, 243, 199, ${reigniteGlowAlpha * 0.45})`);
+                flashGradient.addColorStop(0.4, `rgba(251, 191, 36, ${reigniteGlowAlpha * 0.2})`);
+                flashGradient.addColorStop(1, 'rgba(7, 9, 14, 0)');
+
+                ctx.fillStyle = flashGradient;
+                ctx.fillRect(0, 0, width, height);
+                reigniteGlowAlpha *= 0.92;
+            }
+
+            if (!isForestAwakened) {
+                if (!rabbit.isTransformed) {
+                    // Зменшуємо шкалу з урахуванням поточного прискорення
+                    if (!isMouseDown) {
+                        rabbit.lightLevel = Math.max(0.0, rabbit.lightLevel - currentDecayRate);
+                    }
+                    if (rabbit.lightLevel <= 0) {
+                        rabbit.isTransformed = true;
+                        dropLanternInWoods();
+                        triggerAiForestWhisper('transformed');
+                    }
+                } else {
+                    rabbit.lightLevel = 0;
+                    if (droppedLantern.active) {
+                        const distToLantern = Math.hypot(rabbit.x - droppedLantern.x, rabbit.y - droppedLantern.y);
+                        if (distToLantern < droppedLantern.pickupRadius) {
+                            reigniteLight(true);
+                        }
+                    }
+                }
+            } else {
+                // Once forest is awakened, keep light at max and clear shadow states
+                rabbit.lightLevel = 1.0;
+                rabbit.isTransformed = false;
+                droppedLantern.active = false;
+            }
+
+            document.getElementById('lightBar').style.width = `${Math.floor(rabbit.lightLevel * 100)}%`;
+
+            if (rabbit.lightLevel <= 0.05) {
+                rabbit.transformationProgress = Math.min(1.0, rabbit.transformationProgress + 0.03);
+                
+                document.getElementById('lightStatusLabel').innerText = "Тінь поглинула свідомість";
+                document.getElementById('lightStatusLabel').className = "text-[10px] uppercase tracking-widest text-sky-400 font-semibold animate-pulse";
+
+                if (!hasTriggeredTransformedWhisper) {
+                    hasTriggeredTransformedWhisper = true;
+                    triggerAiForestWhisper('transformed');
+                }
+            } else {
+                rabbit.transformationProgress = Math.max(0.0, rabbit.transformationProgress - 0.05);
+                document.getElementById('lightStatusLabel').innerText = isForestAwakened ? "Ліс Оживив Свідомість ✨" : "Світло свідомості";
+                document.getElementById('lightStatusLabel').className = isForestAwakened ? "text-[10px] uppercase tracking-widest text-emerald-300 font-medium" : "text-[10px] uppercase tracking-widest text-slate-400";
+                hasTriggeredTransformedWhisper = false;
+            }
+
+            const dx = mouse.targetX - rabbit.x;
+            const dy = mouse.targetY - rabbit.y;
+            const dist = Math.hypot(dx, dy);
+
+            if (dist > 5) {
+                rabbit.x += dx * rabbit.speed;
+                rabbit.y += dy * rabbit.speed;
+                rabbit.angle = Math.atan2(dy, dx);
+
+                if (Math.random() < 0.3) {
+                    footstepParticles.push({
+                        x: rabbit.x + (Math.random() - 0.5) * 8,
+                        y: rabbit.y + 8 + (Math.random() - 0.5) * 4,
+                        alpha: 0.6 * Math.max(0.2, rabbit.lightLevel),
+                        radius: 1.2 + Math.random() * 1.5,
+                        isDark: rabbit.transformationProgress > 0.5
+                    });
+                }
+            }
+
+            if (!isForestAwakened && rabbit.lightLevel < 0.65 && rabbit.transformationProgress < 0.8) {
+                alterEgo.active = true;
+                alterEgo.opacity = Math.min(0.95, alterEgo.opacity + 0.03);
+            } else {
+                alterEgo.active = false;
+                alterEgo.opacity = Math.max(0, alterEgo.opacity - 0.05);
+            }
+
+            if (alterEgo.opacity > 0) {
+                alterEgo.orbitAngle += 0.05;
+                const targetOrbitRadius = 28 + Math.sin(Date.now() * 0.006) * 15;
+                
+                const targetEgoX = rabbit.x + Math.cos(alterEgo.orbitAngle) * targetOrbitRadius;
+                const targetEgoY = rabbit.y + Math.sin(alterEgo.orbitAngle) * targetOrbitRadius;
+
+                const egoDx = targetEgoX - alterEgo.x;
+                const egoDy = targetEgoY - alterEgo.y;
+
+                alterEgo.x += egoDx * alterEgo.speed;
+                alterEgo.y += egoDy * alterEgo.speed;
+                alterEgo.angle = Math.atan2(egoDy, egoDx);
+            }
+
+            for (let fog of ambientFog) {
+                fog.x += fog.vx;
+                fog.y += fog.vy;
+                if (fog.x < -fog.radius) fog.x = width + fog.radius;
+                if (fog.x > width + fog.radius) fog.x = -fog.radius;
+                if (fog.y < -fog.radius) fog.y = height + fog.radius;
+                if (fog.y > height + fog.radius) fog.y = -fog.radius;
+
+                const fogGrd = ctx.createRadialGradient(fog.x, fog.y, 0, fog.x, fog.y, fog.radius);
+                const fogR = Math.round(30 + forestAwakenTransition * 30);
+                const fogG = Math.round(41 + forestAwakenTransition * 80);
+                const fogB = Math.round(59 + forestAwakenTransition * 40);
+                fogGrd.addColorStop(0, `rgba(${fogR}, ${fogG}, ${fogB}, ${fog.alpha + forestAwakenTransition * 0.04})`);
+                fogGrd.addColorStop(1, 'rgba(7, 9, 14, 0)');
+                ctx.fillStyle = fogGrd;
+                ctx.fillRect(fog.x - fog.radius, fog.y - fog.radius, fog.radius * 2, fog.radius * 2);
+            }
+
+            if (forestAwakenTransition > 0.05) {
+                for (let ff of forestFireflies) {
+                    ff.x += ff.vx;
+                    ff.y += ff.vy;
+                    ff.pulse += 0.04;
+
+                    if (ff.x < 0) ff.x = width;
+                    if (ff.x > width) ff.x = 0;
+                    if (ff.y < 0) ff.y = height;
+                    if (ff.y > height) ff.y = 0;
+
+                    const alpha = (0.3 + Math.sin(ff.pulse) * 0.3) * forestAwakenTransition;
+                    ctx.fillStyle = `rgba(253, 224, 71, ${alpha})`;
+                    ctx.shadowColor = '#fde047';
+                    ctx.shadowBlur = 8;
+                    ctx.beginPath();
+                    ctx.arc(ff.x, ff.y, ff.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let p of paths) {
+                p.draw(ctx, rabbit.x, rabbit.y, Math.max(0.15, rabbit.lightLevel));
+            }
+
+            for (let tree of trees) {
+                tree.draw(ctx, rabbit.x, rabbit.y, Math.max(0.15, rabbit.lightLevel));
+            }
+
+            drawDroppedLantern(ctx, droppedLantern);
+
+            for (let i = footstepParticles.length - 1; i >= 0; i--) {
+                let fp = footstepParticles[i];
+                fp.alpha -= 0.005;
+                if (fp.alpha <= 0) {
+                    footstepParticles.splice(i, 1);
+                    continue;
+                }
+                ctx.fillStyle = fp.isDark ? `rgba(56, 189, 248, ${fp.alpha})` : `rgba(251, 191, 36, ${fp.alpha})`;
+                ctx.beginPath();
+                ctx.arc(fp.x, fp.y, fp.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            drawAlterEgo(ctx, alterEgo);
+            drawRabbit(ctx, rabbit);
+
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        function pauseGame() {
+            isGamePaused = true;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+
+        function resumeGame() {
+            if (isGamePaused) {
+                isGamePaused = false;
+                requestAnimationFrame(animate);
+            }
+        }
+
+        function reigniteLight(fromDroppedLantern = false) {
+            // Якщо зайченя в стані тіні і це НЕ від підбору ліхтарика (наприклад пробіл) — блокуємо
+            if (rabbit.isTransformed && !fromDroppedLantern) {
+                return;
+            }
+
+            rabbit.lightLevel = 1.0;
+            rabbit.isTransformed = false;
+            droppedLantern.active = false;
+
+            reigniteGlowAlpha = 1.0;
+
+            // Прискорюємо виснаження світла ТІЛЬКИ при підбиранні загубленого ліхтарика
+            if (fromDroppedLantern) {
+                reigniteCount++;
+                currentDecayRate = baseDecayRate * Math.pow(decayAcceleration, reigniteCount);
+
+                if (reigniteCount >= AWAKEN_THRESHOLD) {
+                    isForestAwakened = true;
+                    triggerAiForestWhisper('awakened');
+                } else {
+                    triggerAiForestWhisper('reignite');
+                }
+            }
+
+            const shadowMsg = document.getElementById('shadowStatusMsg');
+            if (shadowMsg) shadowMsg.classList.add('opacity-0');
+            
+            document.getElementById('lightStatusLabel').innerText = isForestAwakened ? "Ліс Оживив Свідомість ✨" : `Світло свідомості (Знайдено ліхтарів: ${reigniteCount}/5)`;
+            
+            const lightBarLabel = document.getElementById('lightBarLabel');
+            if (lightBarLabel) {
+                lightBarLabel.innerText = "Світло свідомості";
+                lightBarLabel.classList.remove('text-cyan-400');
+            }
+
+            const instMain = document.getElementById('instructionMain');
+            if (instMain) instMain.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse"></span> Ведіть курсор / палець: ведіть зайченя з ліхтариком';
+
+            const instSub = document.getElementById('instructionSub');
+            if (instSub) instSub.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-sky-300"></span> Утримуйте мишку: затримуйте виснаження світла';
+
+            if (isAudioPlaying && audioCtx) {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(329.63, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                if (document.activeElement === document.getElementById('aiQueryInput')) {
+                    return;
+                }
+                e.preventDefault();
+                // Запалювання пробілом працює тільки якщо зайченя не у стані тіні
+                if (!rabbit.isTransformed) {
+                    reigniteLight(false);
+                }
+            }
+        });
+
+        window.addEventListener('mousedown', (e) => {
+            if (e.target.closest('button') || e.target.closest('#conceptModal') || e.target.closest('#aiModal')) return;
+            isMouseDown = true;
+            
+            if (!rabbit.isTransformed) {
+                reigniteGlowAlpha = Math.min(1.0, reigniteGlowAlpha + 0.25);
+            }
+
+            if (isAudioPlaying && audioCtx) {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440 + Math.random() * 220, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.5);
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.target.closest('button') || e.target.closest('#conceptModal') || e.target.closest('#aiModal')) return;
+            isMouseDown = true;
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            isMouseDown = false;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.targetX = e.clientX;
+            mouse.targetY = e.clientY;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.targetX = e.touches[0].clientX;
+                mouse.targetY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initScene();
+        });
+
+        const conceptModal = document.getElementById('conceptModal');
+        const conceptBtn = document.getElementById('conceptBtn');
+        if (conceptBtn) {
+            conceptBtn.addEventListener('click', () => {
+                if (conceptModal) conceptModal.classList.remove('opacity-0', 'pointer-events-none');
+            });
+        }
+
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', () => {
+                if (conceptModal) conceptModal.classList.add('opacity-0', 'pointer-events-none');
+            });
+        }
+
+        if (conceptModal) {
+            conceptModal.addEventListener('click', (e) => {
+                if (e.target === conceptModal) {
+                    conceptModal.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+        }
+
+        const audioBtn = document.getElementById('audioBtn');
+        if (audioBtn) {
+            audioBtn.addEventListener('click', toggleAudio);
+        }
+
+        // Dynamic System Prompt Construction
+        function buildSystemPrompt() {
+            let forestState = "напівсутінки (спокійний стан)";
+            let moodInstructions = "Тон спокійний, розміркований, теплий та розважливий.";
+
+            if (rabbit.lightLevel < 0.25 || rabbit.isTransformed) {
+                forestState = "темний (поглинутий тінню та глибокою темрявою)";
+                moodInstructions = "Тон обволікаючий, затишний, глибокий. Пояснюй, що темрява — це лише відпочинок свідомості перед новим світанком.";
+            } else if (isForestAwakened) {
+                forestState = "сяючий, ожилий і квітучий";
+                moodInstructions = "Тон піднесений, натхненний, наповнений ясністю та спокоєм.";
+            }
+
+            return `Ти — Мудрий Ліс Свідомості, духовний порадник і захисник мандрівника.
+Поточний стан лісу: ${forestState}.
+Атмосфера відповіді: ${moodInstructions}
+
+ОБОВ'ЯЗКОВІ ЛОГІЧНІ ТА КОНЦЕПТУАЛЬНІ ПРИНЦИПИ ТВОЇХ ВІДПОВІДЕЙ:
+1. ЛОГІКА ТА ЗМІСТОВНІСТЬ: Твої відповіді повинні мати чіткий, зрозумілий сенс, без надмірної розмитості. Будуй відповідь послідовно та переконливо.
+2. КОРOТКІСТЬ: Відповідь має бути лаконічною — строго 2–3 речення (до 35-40 слів).
+3. СПЕЦІАЛЬНЕ ПРАВИЛО ПРО ТІНЬ, АЛЬТЕР-ЕГО ТА СТРАХ:
+   Якщо мандрівник запитує «Хто така Тінь?», «Що таке Альтер-его?», говорить «Я боюся тіні / темряви» або питає про свій страх:
+   - ОБОВ'ЯЗКОВО поясни: Тінь або Альтер-его — це НЕ ворог і НЕ монстр. Це лише інша, прихована сторона твоєї власної сутності (твого «Я»).
+   - Закликай не боятися її, а довіритися їй. Зрозуміти, що без тіні не буває світла, і прийняття своєї тіні дає цілісність.
+4. ПРИРОДНА МЕТАФОРА: Поєднуй психологічний сенс із метафорами природи (коріння, мох, світло, тиша, вітер).
+5. ПІДТРИМКА ТА ПРИЙНЯТТЯ: Вселяй віру, давай відчуття безпеки та нагадуй, що навіть коли ліхтар гасне, людина не втрачає себе.
+
+Правила форматування:
+- Відповідай виключно українською мовою.
+- Мова повинна бути мудрою, логічною, глибокою та заспокійливою.
+- Чітко тримайся ліміту в 2-3 речення.`;
+        }
+
+        let isGeneratingAi = false;
+        let conversationHistory = [];
+
+        async function fetchGeminiWhisper(userPrompt, isModalQuery = false) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            let contentsPayload = [];
+            
+            if (isModalQuery && conversationHistory.length > 0) {
+                contentsPayload = [...conversationHistory, { role: 'user', parts: [{ text: userPrompt }] }];
+            } else {
+                contentsPayload = [{ role: 'user', parts: [{ text: userPrompt }] }];
+            }
+
+            const payload = {
+                contents: contentsPayload,
+                systemInstruction: { parts: [{ text: buildSystemPrompt() }] }
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text && isModalQuery) {
+                    conversationHistory.push({ role: 'user', parts: [{ text: userPrompt }] });
+                    conversationHistory.push({ role: 'model', parts: [{ text: text }] });
+                }
+
+                return text || null;
+            } catch (err) {
+                console.error("Gemini API Error:", err);
+                return null;
+            }
+        }
+
+        async function triggerAiForestWhisper(reason) {
+            if (isGeneratingAi) return;
+            isGeneratingAi = true;
+
+            const whisperEl = document.getElementById('aiWhisperText');
+            if (whisperEl) whisperEl.classList.add('opacity-40');
+
+            let promptText = "Надай коротке заспокійливе та добре слово лісу для мандрівника, щоб розвіяти його тривогу.";
+            if (reason === 'awakened') {
+                promptText = "Зайченя допомогло лісу повністю розквітнути! Поділися із ним сяючим чарівним словоформимуванням за засадами концепції.";
+            } else if (reason === 'reignite') {
+                promptText = "Зайченя щойно розпалило свій ліхтарик. Дай йому тепло заспокійливе слово за принципами парадоксу та природних метафор.";
+            } else if (reason === 'darkness') {
+                promptText = "Світло згасає, ліс занурюється у темряву. Надай мрачну, глибинну, але захисну відповідь про те, що коріння не боїться темряви.";
+            } else if (reason === 'transformed') {
+                promptText = "Зайченя перетворилося на тінь. Нагадай йому, що Тінь — це лише інша сторона його «Я», якій варто довіритися.";
+            }
+
+            const responseText = await fetchGeminiWhisper(promptText, false);
+            if (responseText && whisperEl) {
+                whisperEl.innerText = `"${responseText.replace(/^["«]|["»]$/g, '').trim()}"`;
+            }
+            if (whisperEl) whisperEl.classList.remove('opacity-40');
+            isGeneratingAi = false;
+        }
+
+        let lastDarkWhisperTime = 0;
+        setInterval(() => {
+            if (rabbit.lightLevel < 0.25 && Date.now() - lastDarkWhisperTime > 20000 && !hasTriggeredTransformedWhisper) {
+                lastDarkWhisperTime = Date.now();
+                triggerAiForestWhisper('darkness');
+            }
+        }, 3000);
+
+        const aiModal = document.getElementById('aiModal');
+        const askAiBtn = document.getElementById('askAiBtn');
+        const closeAiModalBtn = document.getElementById('closeAiModalBtn');
+        const submitAiQuery = document.getElementById('submitAiQuery');
+        const aiQueryInput = document.getElementById('aiQueryInput');
+        const aiChatHistory = document.getElementById('aiChatHistory');
+        const clearChatBtn = document.getElementById('clearChatBtn');
+        const aiSpinner = document.getElementById('aiSpinner');
+        const aiSubmitText = document.getElementById('aiSubmitText');
+
+        if (askAiBtn) {
+            askAiBtn.addEventListener('click', () => {
+                if (aiModal) {
+                    aiModal.classList.remove('opacity-0', 'pointer-events-none');
+                    pauseGame();
+                }
+            });
+        }
+
+        if (closeAiModalBtn) {
+            closeAiModalBtn.addEventListener('click', () => {
+                if (aiModal) {
+                    aiModal.classList.add('opacity-0', 'pointer-events-none');
+                    resumeGame();
+                }
+            });
+        }
+
+        if (aiModal) {
+            aiModal.addEventListener('click', (e) => {
+                if (e.target === aiModal) {
+                    aiModal.classList.add('opacity-0', 'pointer-events-none');
+                    resumeGame();
+                }
+            });
+        }
+
+        if (clearChatBtn) {
+            clearChatBtn.addEventListener('click', () => {
+                conversationHistory = [];
+                if (aiChatHistory) {
+                    aiChatHistory.innerHTML = `
+                        <div class="text-emerald-200/70 italic p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/10">
+                            *Тихий вітерець розвіяв попередній гомін... Ліс знову готовий уважно слухати тебе з чистого аркуша.*
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function appendMessageToChat(sender, text) {
+            if (!aiChatHistory) return;
+            const msgDiv = document.createElement('div');
+            if (sender === 'user') {
+                msgDiv.className = 'p-2 rounded-lg bg-sky-950/40 border border-sky-500/20 text-sky-100 text-right font-sans';
+                msgDiv.innerText = text;
+            } else {
+                msgDiv.className = 'p-2.5 rounded-lg bg-emerald-950/50 border border-emerald-500/20 text-amber-100/90 italic font-serif leading-relaxed';
+                msgDiv.innerText = `"${text.replace(/^["«]|["»]$/g, '').trim()}"`;
+            }
+            aiChatHistory.appendChild(msgDiv);
+            aiChatHistory.scrollTop = aiChatHistory.scrollHeight;
+        }
+
+        if (submitAiQuery) {
+            submitAiQuery.addEventListener('click', async () => {
+                const query = aiQueryInput ? aiQueryInput.value.trim() : '';
+                if (!query) return;
+
+                appendMessageToChat('user', query);
+                if (aiQueryInput) aiQueryInput.value = '';
+
+                if (aiSubmitText) aiSubmitText.innerText = 'Шелест листя...';
+                if (aiSpinner) aiSpinner.classList.remove('hidden');
+                submitAiQuery.disabled = true;
+
+                const response = await fetchGeminiWhisper(query, true);
+                
+                if (aiSpinner) aiSpinner.classList.add('hidden');
+                if (aiSubmitText) aiSubmitText.innerText = 'Шепнути Лісу';
+                submitAiQuery.disabled = false;
+
+                if (response) {
+                    appendMessageToChat('forest', response);
+                } else {
+                    appendMessageToChat('forest', "Ліс тихо замріяно мовчить, але його обійми та тепло поруч із тобою...");
+                }
+            });
+        }
+
+        // Start Application
+        initScene();
+        animate();
+    </script>
+</body>
+</html>
