@@ -1,13 +1,123 @@
 <!DOCTYPE html>
-<html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Діагностика p5-робіт</title>
-<style>body{font-family:system-ui,sans-serif;background:#0b0f17;color:#e2e8f0;padding:20px;line-height:1.6}a{color:#7dd3fc}a:focus-visible{outline:3px solid #fde68a}</style></head>
-<body><h1>Діагностика p5-робіт (не частина виставки)</h1>
-<p>Кожен скетч запускається окремо й лише за кліком. Авторські файли кладіть у цю папку <code>diagnostics/</code>. Відсутні медіа не підміняються.</p>
-<ul>
-<li><a href="telephone.html">telephone — Вероніка Кулинич</a></li>
-<li><a href="meninas.html">meninas — Ростислав Фанагей (камера лише за згодою)</a></li>
-<li><a href="vtrchannia.html">vtrchannia — Ростислав Фанагей</a></li>
-<li><a href="resononsense.html">resononsense — Ростислав Фанагей</a></li>
-</ul>
-<p><a href="../index.html">← До лісу</a></p></body></html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Спогади</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+  <canvas id="artCanvas" role="img" aria-label="Ліс"></canvas>
+
+  <header class="hud-title">
+    <h1 id="appTitle">Спогади</h1>
+    <p class="sub" id="appSubtitle"></p>
+    <p class="credit" id="forestCredit"></p>
+  </header>
+
+  <div class="hud-controls">
+    <div class="lang">
+      <button type="button" id="langUk" class="pill" aria-pressed="true">UA</button>
+      <button type="button" id="langEn" class="pill" aria-pressed="false">EN</button>
+    </div>
+    <button type="button" id="audioBtn" class="pill"><span id="audioText">Звук: Вимк</span></button>
+    <button type="button" id="forestBtn" class="pill" data-i18n="aboutForest">Про ліс</button>
+    <button type="button" id="aboutBtn" class="pill" data-i18n="about">Про виставку</button>
+    <button type="button" id="chatBtn" class="pill accent" data-i18n="talk">Поговорити з Лісом</button>
+    <button type="button" id="endBtn" class="pill" data-i18n="end">Завершити мандрівку</button>
+  </div>
+
+  <section class="whisper hud-panel" aria-live="polite">
+    <span class="demo-tag" data-i18n="whisperTag"></span>
+    <p id="whisperText"></p>
+    <p class="shadow-msg" id="shadowStatusMsg"></p>
+  </section>
+
+  <div class="instructions">
+    <p id="instructionMain"></p>
+    <p id="instructionSub"></p>
+    <p id="instructionSpace"></p>
+  </div>
+
+  <div class="light hud-panel">
+    <span id="lightStatusLabel"></span>
+    <div class="bar"><div id="lightBar"></div></div>
+  </div>
+
+  <div class="encounter" id="encounter" hidden>
+    <p class="enc-title" id="encounterTitle"></p>
+    <p id="encounterPhrase"></p>
+    <div class="enc-actions">
+      <button type="button" id="examineBtn" data-i18n="examine">Оглянути</button>
+      <button type="button" id="dismissBtn" class="dismiss" data-i18n-aria="dismiss" aria-label="Закрити підказку">×</button>
+    </div>
+  </div>
+
+  <p class="load-error" id="loadError" hidden></p>
+</main>
+
+<div class="modal-backdrop" id="explicationModal" hidden role="dialog" aria-modal="true" aria-labelledby="expTitle">
+  <div class="panel">
+    <p class="eyebrow" id="expType"></p>
+    <h2 id="expTitle"></h2>
+    <p class="author" id="expAuthor"></p>
+    <div class="body scroll" id="expBody"></div>
+    <p class="hint" id="expHint"></p>
+    <div class="actions">
+      <button type="button" id="viewArtworkBtn" data-i18n="viewArtwork">До твору</button>
+      <button type="button" id="expReturnBtn" data-i18n="returnForest">Повернутися до лісу</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="artworkModal" hidden role="dialog" aria-modal="true" aria-labelledby="artTitle">
+  <div class="panel wide">
+    <p class="eyebrow" id="artType"></p>
+    <h2 id="artTitle"></h2>
+    <p class="author" id="artAuthor"></p>
+    <div class="art-gallery scroll" id="artGallery" hidden></div>
+    <p class="placeholder" id="artPlaceholder" data-i18n="artworkSoon">Твір буде додано</p>
+    <div class="actions">
+      <button type="button" id="backTextBtn" data-i18n="backText">Повернутися до тексту</button>
+      <button type="button" id="artReturnBtn" data-i18n="returnForest">Повернутися до лісу</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="aboutModal" hidden role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="panel wide">
+    <h2 id="aboutTitle"></h2>
+    <p class="eyebrow" id="aboutSub"></p>
+    <div class="body scroll" id="aboutBody"></div>
+    <div class="actions"><button type="button" id="aboutCloseBtn" data-i18n="close">Закрити</button></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="chatModal" hidden role="dialog" aria-modal="true" aria-labelledby="chatTitle">
+  <div class="panel">
+    <h2 id="chatTitle" data-i18n="talk">Поговорити з Лісом</h2>
+    <p class="demo-banner" data-i18n="chatDemo"></p>
+    <div class="chat-log scroll" id="chatLog" aria-live="polite"></div>
+    <p class="hint" data-i18n="chatPick"></p>
+    <div class="actions" id="chatTopics"></div>
+    <div class="actions"><button type="button" id="chatCloseBtn" data-i18n="close">Закрити</button></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="endModal" hidden role="dialog" aria-modal="true" aria-labelledby="endTitle">
+  <div class="panel">
+    <h2 id="endTitle" data-i18n="endTitle">Завершити мандрівку?</h2>
+    <p class="body" id="endSummary"></p>
+    <div class="actions">
+      <button type="button" id="endReturnBtn" data-i18n="returnForest">Повернутися до лісу</button>
+      <button type="button" id="restartBtn" data-i18n="startAgain">Почати нову мандрівку</button>
+    </div>
+  </div>
+</div>
+
+<script src="artifacts.js"></script>
+<script src="forest.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>
