@@ -229,7 +229,7 @@
     $('expHint').textContent = '';
     $('viewArtworkBtn').hidden = !!w.isEnvironment;
   }
-  const EMBED = { meninas: 'assets/p5/meninas.html', telephone: 'assets/p5/telephone.html', freed_time: 'assets/p5/freed_time/index.html?v=3' }; // vtrchannia, resononsense: без авторських файлів нічого не відтворюють — заглушка
+  const EMBED = { meninas: 'diagnostics/meninas.html', telephone: 'diagnostics/telephone.html' }; // vtrchannia, resononsense: без авторських файлів нічого не відтворюють — заглушка
   function stopEmbed() { $('artGallery').querySelectorAll('video').forEach(v => v.pause()); $('artGallery').replaceChildren(); }
   function renderArtwork() {
     const w = currentWork;
